@@ -16,6 +16,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import { useNavigation } from "@react-navigation/native";
 
 const SignupSchema = Yup.object().shape({
   login: Yup.string()
@@ -42,12 +43,15 @@ export default RegistrationScreen = () => {
   const [isPasswordShow, setIsPasswordShow] = useState(false);
   const [isFormActive, setIsFormActive] = useState(false);
 
+  const navigation = useNavigation();
+
   const PasswordShowHandler = () => {
     setIsPasswordShow(!isPasswordShow);
   };
 
   const toLoginPage = () => {
     console.log("goLoginPage");
+    navigation.navigate("login");
   };
 
   return (
@@ -66,7 +70,10 @@ export default RegistrationScreen = () => {
           <Formik
             initialValues={{ login: "", mail: "", password: "" }}
             validationSchema={SignupSchema}
-            onSubmit={(values) => console.log(JSON.stringify(values))}
+            onSubmit={(values) => {
+              console.log(JSON.stringify(values));
+              navigation.navigate("home");
+            }}
           >
             {({
               values,

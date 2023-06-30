@@ -14,6 +14,7 @@ import {
 } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import { useNavigation } from "@react-navigation/native";
 
 const SignupSchema = Yup.object().shape({
   mail: Yup.string()
@@ -35,12 +36,15 @@ export default LoginScreen = () => {
   const [isPasswordShow, setIsPasswordShow] = useState(false);
   const [isFormActive, setIsFormActive] = useState(false);
 
+  const navigation = useNavigation();
+
   const PasswordShowHandler = () => {
     setIsPasswordShow(!isPasswordShow);
   };
 
   const toSignUpPage = () => {
     console.log("goSignUpPage");
+    navigation.navigate("register");
   };
 
   return (
@@ -58,7 +62,10 @@ export default LoginScreen = () => {
           <Formik
             initialValues={{ mail: "", password: "" }}
             validationSchema={SignupSchema}
-            onSubmit={(values) => console.log(JSON.stringify(values))}
+            onSubmit={(values) => {
+              console.log(JSON.stringify(values));
+              navigation.navigate("home");
+            }}
           >
             {({
               values,
@@ -156,7 +163,11 @@ export default LoginScreen = () => {
                     onPress={toSignUpPage}
                   >
                     <Text style={styles.buttonSlaveText}>
-                      Немає акаунту? Зареєструватися
+                      Немає акаунту?
+                      <Text style={{ textDecorationLine: "underline" }}>
+                        {" "}
+                        Зареєструватися
+                      </Text>
                     </Text>
                   </TouchableOpacity>
                 </View>

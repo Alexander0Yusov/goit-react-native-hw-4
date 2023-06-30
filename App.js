@@ -1,9 +1,13 @@
 // import { StatusBar } from "expo-status-bar"; // <StatusBar style="auto" />
 // import { Text } from "react-native";
 import { useFonts } from "expo-font";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 import RegistrationScreen from "./screens/RegistrationScreen";
 import LoginScreen from "./screens/LoginScreen";
 import PostsScreen from "./screens/PostsScreen";
+
+const StackAuth = createStackNavigator();
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -19,9 +23,31 @@ export default function App() {
     return;
   }
 
-  return <RegistrationScreen />;
+  // return <RegistrationScreen />;
   // return <LoginScreen />;
   // return <PostsScreen />;
+
+  return (
+    <NavigationContainer>
+      <StackAuth.Navigator>
+        <StackAuth.Screen
+          options={{ headerShown: false }}
+          name="login"
+          component={LoginScreen}
+        />
+        <StackAuth.Screen
+          options={{ headerShown: false }}
+          name="register"
+          component={RegistrationScreen}
+        />
+        <StackAuth.Screen
+          options={{ headerShown: false }}
+          name="home"
+          component={PostsScreen}
+        />
+      </StackAuth.Navigator>
+    </NavigationContainer>
+  );
 }
 
 // npx expo start

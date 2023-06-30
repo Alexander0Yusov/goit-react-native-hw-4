@@ -18,8 +18,6 @@ import { Feather } from "@expo/vector-icons";
 export default LoginScreen = () => {
   return (
     <View style={styles.container}>
-      {/* <Ionicons name="md-checkmark-circle" size={32} color="green" /> */}
-
       <View style={styles.header}>
         <View style={styles.headerWrap}>
           <Text style={styles.title}>Публікації</Text>
