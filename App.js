@@ -2,14 +2,12 @@
 // import { Text } from "react-native";
 import { useFonts } from "expo-font";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import RegistrationScreen from "./screens/RegistrationScreen";
-import LoginScreen from "./screens/LoginScreen";
-import PostsScreen from "./screens/PostsScreen";
 
-const StackAuth = createStackNavigator();
+import navSelector from "./routing";
 
 export default function App() {
+  routes = navSelector(true);
+
   const [fontsLoaded] = useFonts({
     "Roboto-100": require("./assets/fonts/Roboto-Thin.ttf"),
     "Roboto-300": require("./assets/fonts/Roboto-Light.ttf"),
@@ -23,31 +21,7 @@ export default function App() {
     return;
   }
 
-  // return <RegistrationScreen />;
-  // return <LoginScreen />;
-  // return <PostsScreen />;
-
-  return (
-    <NavigationContainer>
-      <StackAuth.Navigator>
-        <StackAuth.Screen
-          options={{ headerShown: false }}
-          name="login"
-          component={LoginScreen}
-        />
-        <StackAuth.Screen
-          options={{ headerShown: false }}
-          name="register"
-          component={RegistrationScreen}
-        />
-        <StackAuth.Screen
-          options={{ headerShown: false }}
-          name="home"
-          component={PostsScreen}
-        />
-      </StackAuth.Navigator>
-    </NavigationContainer>
-  );
+  return <NavigationContainer>{routes}</NavigationContainer>;
 }
 
 // npx expo start

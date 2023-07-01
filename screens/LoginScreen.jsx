@@ -64,7 +64,6 @@ export default LoginScreen = () => {
             validationSchema={SignupSchema}
             onSubmit={(values) => {
               console.log(JSON.stringify(values));
-              navigation.navigate("home");
             }}
           >
             {({
