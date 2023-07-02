@@ -1,35 +1,49 @@
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  ImageBackground,
+  TouchableOpacity,
+  Image,
+  TouchableWithoutFeedback,
+} from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { SimpleLineIcons } from "@expo/vector-icons";
-import { Feather } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import { MaterialIcons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 
 export default ProfileScreen = () => {
-  const navigation = useNavigation();
-
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Profile Screen</Text>
-      <View style={styles.footer}>
-        <View style={styles.footerNavigation}>
-          <TouchableOpacity
-            style={styles.buttonGrid}
-            activeOpacity={0.8}
-            onPress={() => navigation.navigate("posts")}
-          >
-            <SimpleLineIcons name="grid" size={24} color="#212121" />
-          </TouchableOpacity>
+      <TouchableWithoutFeedback>
+        <ImageBackground
+          style={styles.backgroundImage}
+          source={require("../assets/images/Photo-BG.jpg")}
+        >
+          <View style={[styles.profileContent]}>
+            <View style={styles.imageThumb}>
+              <TouchableOpacity
+                style={styles.buttonAddPortrait}
+                activeOpacity={0.8}
+              >
+                {false ? (
+                  <MaterialIcons
+                    name="add-circle-outline"
+                    size={28}
+                    color="#FF6C00"
+                  />
+                ) : (
+                  <AntDesign name="closecircleo" size={24} color="#BDBDBD" />
+                )}
+              </TouchableOpacity>
+            </View>
+            <TouchableOpacity style={styles.buttonLogout} activeOpacity={0.8}>
+              <Ionicons name="exit-outline" size={28} color="#BDBDBD" />
+            </TouchableOpacity>
 
-          <TouchableOpacity style={styles.buttonAdd} activeOpacity={0.8}>
-            <Ionicons name="add" size={24} color="#fff" />
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.buttonUser} activeOpacity={0.8}>
-            <Feather name="user" size={24} color="#212121" />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.footerRow}></View>
-      </View>
+            <Text style={styles.title}>User Name</Text>
+          </View>
+        </ImageBackground>
+      </TouchableWithoutFeedback>
     </View>
   );
 };
@@ -38,70 +52,155 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+
     // borderWidth: 1,
     // borderColor: "red",
   },
+  backgroundImage: {
+    flex: 1,
+    sizeMode: "cover",
+    alignItems: "center",
+    justifyContent: "center",
 
-  title: {
-    fontSize: 17,
-    fontWeight: 500,
-    fontFamily: "Roboto-500",
-    color: "#212121",
+    // borderWidth: 1,
+    // borderColor: "red",
+  },
+  profileContent: {
+    position: "relative",
+    marginTop: "auto",
+    height: 550,
+    width: "100%",
+    alignItems: "center",
+    backgroundColor: "#fff",
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
+    paddingLeft: 16,
+    paddingRight: 16,
 
-    alignSelf: "center",
+    // borderWidth: 1,
+    // borderColor: "red",
+  },
+  imageThumb: {
+    position: "absolute",
+    top: -60,
+    height: 120,
+    width: 120,
+    backgroundColor: "#F6F6F6",
+    borderRadius: 16,
+
+    // borderWidth: 1,
+    // borderColor: "red",
+  },
+  buttonAddPortrait: {
+    position: "absolute",
+    right: -13,
+    bottom: 13,
+    width: 30,
+    height: 30,
+    alignItems: "center",
+    justifyContent: "center",
+
+    // borderWidth: 1,
+    // borderColor: "red",
+  },
+  buttonLogout: {
+    position: "absolute",
+    top: 18,
+    right: 16,
+    width: 30,
+    height: 30,
+    justifyContent: "center",
+    alignItems: "center",
 
     // borderWidth: 1,
     // borderColor: "blue",
   },
-
-  footer: {
+  imagePortrait: {
     width: "100%",
-    height: 83,
-
-    alignItems: "center",
-    marginTop: 16,
-
-    borderTopWidth: 1,
-    borderTopColor: "#BDBDBD",
+    height: "100%",
   },
-  footerNavigation: {
-    height: 42,
-    width: 208,
-    marginTop: 16,
-
-    flexDirection: "row",
-    justifyContent: "space-between",
+  title: {
+    marginTop: 90,
+    marginBottom: 15,
+    fontSize: 30,
+    fontFamily: "Roboto-500",
+    color: "#212121",
+  },
+  input: {
+    height: 50,
+    width: "100%",
+    marginTop: 15,
+    fontSize: 16,
+    borderWidth: 1,
+    borderColor: "#E8E8E8",
+    borderRadius: 8,
+    backgroundColor: "#F6F6F6",
+    fontFamily: "Roboto-400",
+    color: "#212121",
+  },
+  inputPass: {
+    height: 50,
+    width: "100%",
+    fontSize: 16,
+    borderWidth: 1,
+    borderColor: "#E8E8E8",
+    borderRadius: 8,
+    backgroundColor: "#F6F6F6",
+    fontFamily: "Roboto-400",
+    color: "#212121",
+  },
+  wrapInputPass: {
+    position: "relative",
+    width: "100%",
+    height: 50,
+    marginTop: 15,
+    alignItems: "center",
 
     // borderWidth: 1,
     // borderColor: "red",
   },
-  buttonGrid: {
-    width: 40,
-    height: 40,
+  buttonShowPass: {
+    position: "absolute",
+    right: 0,
+    paddingRight: 16,
+    height: 50,
     justifyContent: "center",
-    alignItems: "center",
 
     // borderWidth: 1,
     // borderColor: "red",
   },
-  buttonAdd: {
-    width: 70,
-    height: 40,
+  buttonMaster: {
+    marginTop: 40,
+    height: 50,
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
     backgroundColor: "#FF6C00",
-    borderRadius: 20,
-
-    justifyContent: "center",
-    alignItems: "center",
+    borderRadius: 25,
   },
-  buttonUser: {
-    width: 40,
-    height: 40,
-    justifyContent: "center",
+  buttonMasterText: {
+    fontSize: 16,
+    color: "#fff",
+    fontFamily: "Roboto-400",
+  },
+
+  buttonSlave: {
+    marginTop: 4,
+    height: 50,
+    width: "100%",
     alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "transparent",
 
     // borderWidth: 1,
     // borderColor: "red",
+  },
+  buttonSlaveText: {
+    fontSize: 16,
+    color: "#1B4371",
+    fontFamily: "Roboto-400",
+  },
+  focusedInput: {
+    borderColor: "#FF6C00",
   },
 });

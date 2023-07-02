@@ -1,28 +1,67 @@
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
-import Ionicons from "@expo/vector-icons/Ionicons";
-import { SimpleLineIcons } from "@expo/vector-icons";
-import { Feather } from "@expo/vector-icons";
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  TextInput,
+  KeyboardAvoidingView,
+} from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
+import { useEffect, useState } from "react";
 
 export default CreatePostScreen = () => {
+  const [namePhoto, setNamePhoto] = useState("");
+  const [namePlace, setNamePlace] = useState("");
+  const [inputIsActive, setInputIsActive] = useState(false);
+
+  useEffect(() => {
+    setInputIsActive(false);
+  }, []);
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Create Post Screen</Text>
-      <View style={styles.footer}>
-        <View style={styles.footerNavigation}>
-          <TouchableOpacity style={styles.buttonGrid} activeOpacity={0.8}>
-            <SimpleLineIcons name="grid" size={24} color="#212121" />
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.buttonAdd} activeOpacity={0.8}>
-            <Ionicons name="add" size={24} color="#fff" />
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.buttonUser} activeOpacity={0.8}>
-            <Feather name="user" size={24} color="#212121" />
+      {true && (
+        <View style={styles.thumb}>
+          <TouchableOpacity style={styles.photoButton}>
+            <MaterialIcons name="photo-camera" size={24} color="#BDBDBD" />
           </TouchableOpacity>
         </View>
-        <View style={styles.footerRow}></View>
-      </View>
+      )}
+      {true && <Text style={styles.title}>Завантажте фото</Text>}
+
+      <KeyboardAvoidingView
+        style={{ width: "100%" }}
+        behavior={Platform.OS == "ios" ? "padding" : "height"}
+      >
+        <TextInput
+          style={styles.inputNamePhoto}
+          placeholder="Назва..."
+          cursorColor={"black"}
+          paddingLeft={16}
+          value={namePhoto}
+          onChangeText={setNamePhoto}
+          onFocus={() => {
+            setInputIsActive(true);
+          }}
+          onBlur={() => {
+            setInputIsActive(false);
+          }}
+        />
+        <TextInput
+          style={styles.inputNamePlace}
+          placeholder="Місцевість..."
+          cursorColor={"black"}
+          paddingLeft={16}
+          value={namePlace}
+          onChangeText={setNamePlace}
+          onFocus={() => {
+            setInputIsActive(true);
+          }}
+          onBlur={() => {
+            setInputIsActive(false);
+          }}
+        />
+      </KeyboardAvoidingView>
     </View>
   );
 };
@@ -32,118 +71,49 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center",
+    paddingTop: 32,
+    paddingLeft: 12,
+    paddingRight: 12,
+
     // borderWidth: 1,
     // borderColor: "red",
   },
-
+  thumb: {
+    height: 300,
+    width: "100%",
+    borderRadius: 8,
+    backgroundColor: "#E8E8E8",
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 1,
+    borderColor: "red",
+  },
+  photoButton: {
+    height: 60,
+    width: 60,
+    borderRadius: 30,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
   title: {
-    fontSize: 17,
-    fontWeight: 500,
-    fontFamily: "Roboto-500",
-    color: "#212121",
-
-    alignSelf: "center",
-
-    // borderWidth: 1,
-    // borderColor: "blue",
+    color: "#BDBDBD",
+    fontFamily: "Roboto-400",
+    fontSize: 16,
+    alignSelf: "flex-start",
   },
-
-  footer: {
+  inputNamePhoto: {
+    marginTop: 30,
+    height: 50,
     width: "100%",
-    height: 83,
-
-    alignItems: "center",
-    marginTop: 16,
-
-    borderTopWidth: 1,
-    borderTopColor: "#BDBDBD",
+    borderWidth: 1,
+    borderColor: "red",
   },
-  footerNavigation: {
-    height: 42,
-    width: 208,
-    marginTop: 16,
-
-    flexDirection: "row",
-    justifyContent: "space-between",
-
-    // borderWidth: 1,
-    // borderColor: "red",
-  },
-  buttonGrid: {
-    width: 40,
-    height: 40,
-    justifyContent: "center",
-    alignItems: "center",
-
-    // borderWidth: 1,
-    // borderColor: "red",
-  },
-  buttonAdd: {
-    width: 70,
-    height: 40,
-    backgroundColor: "#FF6C00",
-    borderRadius: 20,
-
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  buttonUser: {
-    width: 40,
-    height: 40,
-    justifyContent: "center",
-    alignItems: "center",
-
-    // borderWidth: 1,
-    // borderColor: "red",
-  },
-
-  footer: {
+  inputNamePlace: {
+    marginTop: 30,
+    height: 50,
     width: "100%",
-    height: 83,
-
-    alignItems: "center",
-    marginTop: 16,
-
-    borderTopWidth: 1,
-    borderTopColor: "#BDBDBD",
-  },
-  footerNavigation: {
-    height: 42,
-    width: 208,
-    marginTop: 16,
-
-    flexDirection: "row",
-    justifyContent: "space-between",
-
-    // borderWidth: 1,
-    // borderColor: "red",
-  },
-  buttonGrid: {
-    width: 40,
-    height: 40,
-    justifyContent: "center",
-    alignItems: "center",
-
-    // borderWidth: 1,
-    // borderColor: "red",
-  },
-  buttonAdd: {
-    width: 70,
-    height: 40,
-    backgroundColor: "#FF6C00",
-    borderRadius: 20,
-
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  buttonUser: {
-    width: 40,
-    height: 40,
-    justifyContent: "center",
-    alignItems: "center",
-
-    // borderWidth: 1,
-    // borderColor: "red",
+    borderWidth: 1,
+    borderColor: "red",
   },
 });

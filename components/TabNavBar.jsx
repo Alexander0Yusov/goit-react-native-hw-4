@@ -2,7 +2,6 @@ import { StyleSheet, View, TouchableOpacity } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
-import { useState } from "react";
 
 export default TabNavBar = ({ state, descriptors, navigation }) => {
   let gridFocused,
@@ -145,7 +144,7 @@ const styles = StyleSheet.create({
     height: 83,
 
     alignItems: "center",
-    marginTop: 16,
+    // marginTop: 16,
 
     borderTopWidth: 1,
     borderTopColor: "#BDBDBD",

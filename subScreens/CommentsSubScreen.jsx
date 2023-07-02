@@ -1,12 +1,9 @@
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
-import Ionicons from "@expo/vector-icons/Ionicons";
-import { SimpleLineIcons } from "@expo/vector-icons";
-import { Feather } from "@expo/vector-icons";
 
-export default PostsScreen = () => {
+export default CommentsSubScreen = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Posts Screen</Text>
+      <Text style={styles.title}>Comments SubScreen</Text>
     </View>
   );
 };

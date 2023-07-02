@@ -1,18 +1,23 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import RegistrationScreen from "./screens/RegistrationScreen";
 import LoginScreen from "./screens/LoginScreen";
-import PostsScreen from "./screens/PostsScreen";
+import PostsSubScreen from "./subScreens/PostsSubScreen";
 import CreatePostScreen from "./screens/CreatePostScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { SimpleLineIcons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 import TabNavBar from "./components/TabNavBar";
+import NavigateSubScreen from "./subScreens/NavigateSubScreen";
 
 const StackAuth = createStackNavigator();
 const ButtomTabNav = createBottomTabNavigator();
 
-const optionsPostsScreen = {
+//===== 1
+const optionsPostsSubScreen = {
   headerShown: true,
   title: "Публікації",
   headerTitleAlign: "center",
@@ -27,28 +32,147 @@ const optionsPostsScreen = {
   },
 
   headerRight: () => {
-    // <TouchableOpacity activeOpacity={0.8}>
-    //   <Ionicons name="exit-outline" size={28} color="#BDBDBD" />
-    // </TouchableOpacity>;
+    <TouchableOpacity
+      style={{
+        height: 24,
+        width: 24,
+        backgroundColor: "black",
+      }}
+      onPress={() => console.log("hi")}
+    >
+      <Ionicons name="exit-outline" size={20} color="#BDBDBD" />
+    </TouchableOpacity>;
+  },
+  headerRightContainerStyle: {
+    height: 28,
+    width: 28,
+    marginRight: 16,
+    marginTop: 16,
+    borderWidth: 1,
+    borderColor: "red",
+  },
+  tabBarIcon: ({ color }) => (
+    <SimpleLineIcons name="grid" size={24} color={color} />
+  ),
+  tabBarShowLabel: true,
+  tabBarLabel: ({ focused }) => (
+    <View
+      style={{
+        height: 4,
+        width: 120,
+        backgroundColor: focused ? "#212121" : "transparent",
+        marginBottom: 4,
+      }}
+    ></View>
+  ),
+  tabBarActiveTintColor: "#FF6C00",
+  tabBarInactiveTintColor: "#BDBDBD",
+  tabBarStyle: {
+    height: 83,
+  },
+};
+
+// ====== 2
+
+const optionsCreatePostScreen = {
+  headerShown: true,
+  title: "Створити публікацію",
+  headerTitleAlign: "center",
+  headerShadowVisible: true,
+  headerStyle: {
+    elevation: 10,
+    shadowOpacity: 4,
+    borderBottomWidth: 1,
+  },
+  headerTitleStyle: {
+    fontSize: 17,
+  },
+  headerLeft: () => {
+    <View style={{ height: 20, width: 20, backgroundColor: "black" }}>
+      <Text style={{ fontSize: 16 }}>Go back</Text>
+    </View>;
+  },
+
+  headerLeftContainerStyle: {
+    height: 28,
+    width: 28,
+    marginLeft: 16,
+    marginTop: 16,
+    borderWidth: 1,
+    borderColor: "red",
+  },
+  tabBarHideOnKeyboard: true,
+  tabBarIcon: ({ color }) => <Ionicons name="add" size={24} color={color} />,
+  tabBarShowLabel: true,
+  tabBarLabel: ({ focused }) => (
+    <View
+      style={{
+        position: "absolute",
+        top: 54,
+        height: 4,
+        width: 120,
+        backgroundColor: focused ? "#212121" : "transparent",
+        marginBottom: 4,
+      }}
+    ></View>
+  ),
+  tabBarItemStyle: {
+    position: "relative",
+    marginTop: 20,
+    height: 40,
+    width: 50,
+    borderRadius: 20,
+    backgroundColor: "#FF6C00",
+  },
+  tabBarActiveTintColor: "#fff",
+
+  tabBarStyle: {
+    height: 83,
+  },
+};
+
+// ======= 3
+
+const optionsProfileScreen = {
+  headerShown: false,
+  tabBarIcon: ({ color }) => <Feather name="user" size={24} color={color} />,
+  tabBarShowLabel: true,
+  tabBarLabel: ({ focused }) => (
+    <View
+      style={{
+        height: 4,
+        width: 120,
+        backgroundColor: focused ? "#212121" : "transparent",
+        marginBottom: 4,
+      }}
+    ></View>
+  ),
+  tabBarActiveTintColor: "#FF6C00",
+  tabBarInactiveTintColor: "#BDBDBD",
+  tabBarStyle: {
+    height: 83,
   },
 };
 
 export default navSelector = (isAuth) => {
   if (isAuth) {
     return (
-      <ButtomTabNav.Navigator
-        initialRouteName="posts"
-        backBehavior="history"
-        screenOptions={{ tabBarShowLabel: false }}
-        tabBar={(props) => <TabNavBar {...props} />}
-      >
+      <ButtomTabNav.Navigator initialRouteName="posts" backBehavior="history">
         <ButtomTabNav.Screen
           name="posts"
-          component={PostsScreen}
-          options={optionsPostsScreen}
+          component={NavigateSubScreen}
+          options={optionsPostsSubScreen}
         />
-        <ButtomTabNav.Screen name="createPost" component={CreatePostScreen} />
-        <ButtomTabNav.Screen name="profile" component={ProfileScreen} />
+        <ButtomTabNav.Screen
+          name="createPost"
+          component={CreatePostScreen}
+          options={optionsCreatePostScreen}
+        />
+        <ButtomTabNav.Screen
+          name="profile"
+          component={ProfileScreen}
+          options={optionsProfileScreen}
+        />
       </ButtomTabNav.Navigator>
     );
   }

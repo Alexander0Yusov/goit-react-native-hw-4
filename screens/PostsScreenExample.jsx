@@ -1,16 +1,4 @@
-import { useState } from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  ImageBackground,
-  TextInput,
-  TouchableOpacity,
-  Image,
-  Platform,
-  KeyboardAvoidingView,
-  Keyboard,
-} from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
