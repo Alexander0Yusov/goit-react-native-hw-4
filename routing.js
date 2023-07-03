@@ -1,16 +1,13 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import RegistrationScreen from "./screens/RegistrationScreen";
 import LoginScreen from "./screens/LoginScreen";
-import PostsSubScreen from "./subScreens/PostsSubScreen";
 import CreatePostScreen from "./screens/CreatePostScreen";
 import ProfileScreen from "./screens/ProfileScreen";
-
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
-import TabNavBar from "./components/TabNavBar";
 import NavigateSubScreen from "./subScreens/NavigateSubScreen";
 
 const StackAuth = createStackNavigator();
@@ -125,7 +122,7 @@ const optionsCreatePostScreen = {
     backgroundColor: "#FF6C00",
   },
   tabBarActiveTintColor: "#fff",
-
+  tabBarInactiveTintColor: "#BDBDBD",
   tabBarStyle: {
     height: 83,
   },
