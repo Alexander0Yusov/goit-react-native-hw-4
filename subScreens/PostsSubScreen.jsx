@@ -7,6 +7,8 @@ import {
   FlatList,
 } from "react-native";
 import CardPost from "../components/CardPost";
+import { AntDesign } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 
 export default PostsScreen = ({ navigation, route }) => {
   const [posts, setPosts] = useState([]);
@@ -15,6 +17,33 @@ export default PostsScreen = ({ navigation, route }) => {
     setPosts((prev) => [...prev, route.params]);
     console.log(posts);
   }, [route.params]);
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerShown: true,
+      title: "Публікації",
+      headerTitleAlign: "center",
+      headerTitleStyle: {
+        fontSize: 17,
+      },
+      headerStyle: {
+        elevation: 10,
+        shadowOpacity: 4,
+        borderBottomWidth: 1,
+      },
+      headerRight: () => (
+        <Feather
+          name="log-out"
+          size={24}
+          color="#BDBDBD"
+          onPress={() => console.log("Logout")}
+        />
+      ),
+      headerRightContainerStyle: {
+        marginRight: 20,
+      },
+    });
+  });
 
   const toMapScreen = () => {
     navigation.navigate("mapPostsSubScreen");

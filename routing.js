@@ -1,4 +1,7 @@
-import { createStackNavigator } from "@react-navigation/stack";
+import {
+  createStackNavigator,
+  HeaderBackButton,
+} from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { View, Text, TouchableOpacity } from "react-native";
 import RegistrationScreen from "./screens/RegistrationScreen";
@@ -8,6 +11,7 @@ import ProfileScreen from "./screens/ProfileScreen";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import NavigateSubScreen from "./subScreens/NavigateSubScreen";
 
 const StackAuth = createStackNavigator();
@@ -15,7 +19,7 @@ const ButtomTabNav = createBottomTabNavigator();
 
 //===== 1
 const optionsPostsSubScreen = {
-  headerShown: true,
+  headerShown: false,
   title: "Публікації",
   headerTitleAlign: "center",
   headerShadowVisible: true,
@@ -84,20 +88,26 @@ const optionsCreatePostScreen = {
   headerTitleStyle: {
     fontSize: 17,
   },
-  headerLeft: () => {
-    <View style={{ height: 20, width: 20, backgroundColor: "black" }}>
-      <Text style={{ fontSize: 16 }}>Go back</Text>
-    </View>;
-  },
+  // headerLeft: (props) => {
+  //   return (
+  //     <AntDesign
+  //       {...props}
+  //       name="arrowleft"
+  //       size={24}
+  //       color="black"
+  //       onPress={() => console.log(props)}
+  //     />
+  //   );
+  // },
 
-  headerLeftContainerStyle: {
-    height: 28,
-    width: 28,
-    marginLeft: 16,
-    marginTop: 16,
-    borderWidth: 1,
-    borderColor: "red",
-  },
+  // headerLeftContainerStyle: {
+  //   height: 28,
+  //   width: 28,
+  //   marginLeft: 16,
+  //   marginTop: 16,
+  //   borderWidth: 1,
+  //   borderColor: "red",
+  // },
   tabBarHideOnKeyboard: true,
   tabBarIcon: ({ color }) => <Ionicons name="add" size={24} color={color} />,
   tabBarShowLabel: true,

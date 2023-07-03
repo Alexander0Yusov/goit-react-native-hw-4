@@ -6,7 +6,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import navSelector from "./routing";
 
 export default function App() {
-  routes = navSelector(true);
+  const routes = navSelector(true);
 
   const [fontsLoaded] = useFonts({
     "Roboto-100": require("./assets/fonts/Roboto-Thin.ttf"),

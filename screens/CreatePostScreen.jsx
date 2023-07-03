@@ -12,25 +12,56 @@ import {
 import { MaterialIcons } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
 import { Camera } from "expo-camera";
+import * as Location from "expo-location";
+import { HeaderBackButton } from "@react-navigation/elements";
 
 export default CreatePostScreen = ({ navigation }) => {
   const [cameraRef, setCameraRef] = useState(null);
   const [photo, setPhoto] = useState("");
+  const [location, setLocation] = useState(null);
   const [namePhoto, setNamePhoto] = useState("");
   const [namePlace, setNamePlace] = useState("");
   const [inputIsActive, setInputIsActive] = useState(false);
 
   useEffect(() => {
+    resetForm();
     setInputIsActive(false);
+    async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        return;
+      }
+      // строку ниже вроде надо бы убрать
+      await Location.isBackgroundLocationAvailableAsync(true);
+    };
   }, []);
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerShown: true,
+      headerLeft: (props) => (
+        <HeaderBackButton
+          {...props}
+          onPress={() => {
+            navigation.goBack();
+          }}
+        />
+      ),
+    });
+  });
 
   const makeSnap = async () => {
     if (photo) {
       setPhoto("");
       return;
     }
+
     const snap = await cameraRef.takePictureAsync();
+    const point = await Location.getCurrentPositionAsync();
+    const { latitude, longitude } = point.coords;
     setPhoto(snap.uri);
+    setLocation({ latitude, longitude });
   };
 
   const resetForm = () => {
@@ -40,7 +71,7 @@ export default CreatePostScreen = ({ navigation }) => {
   };
 
   const handleSubmit = () => {
-    const formData = { photo, namePhoto, namePlace };
+    const formData = { photo, namePhoto, namePlace, location };
     setInputIsActive(false);
     navigation.navigate("basePostsSubScreen", formData);
     resetForm();
