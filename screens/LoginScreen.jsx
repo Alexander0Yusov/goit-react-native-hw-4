@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   StyleSheet,
   View,
@@ -15,6 +15,9 @@ import {
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
+import { authSelector } from "../redux/stateSelectors";
+import { loginThunk } from "../redux/authService/thunks";
 
 const SignupSchema = Yup.object().shape({
   mail: Yup.string()
@@ -35,6 +38,12 @@ export default LoginScreen = () => {
 
   const [isPasswordShow, setIsPasswordShow] = useState(false);
   const [isFormActive, setIsFormActive] = useState(false);
+
+  const dispatch = useDispatch();
+  const state = useSelector(authSelector);
+  useEffect(() => {
+    console.log("logScreen== ", state.email);
+  }, [state.email]);
 
   const navigation = useNavigation();
 
@@ -60,10 +69,12 @@ export default LoginScreen = () => {
           source={require("../assets/images/Photo-BG.jpg")}
         >
           <Formik
-            initialValues={{ mail: "", password: "" }}
+            initialValues={{ mail: "rr@gmail.com", password: "aA2@aa" }}
             validationSchema={SignupSchema}
             onSubmit={(values) => {
-              console.log(JSON.stringify(values));
+              const { login, mail, password } = values;
+              // console.log(JSON.stringify(values));
+              dispatch(loginThunk({ email: mail, password }));
             }}
           >
             {({

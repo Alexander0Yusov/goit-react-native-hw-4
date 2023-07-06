@@ -10,8 +10,14 @@ import {
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
+import { useDispatch, useSelector } from "react-redux";
+import { signOutThunk } from "../redux/authService/thunks";
+import { authSelector } from "../redux/stateSelectors";
 
 export default ProfileScreen = () => {
+  const dispatch = useDispatch();
+  const state = useSelector(authSelector);
+
   return (
     <View style={styles.container}>
       <TouchableWithoutFeedback>
@@ -36,11 +42,15 @@ export default ProfileScreen = () => {
                 )}
               </TouchableOpacity>
             </View>
-            <TouchableOpacity style={styles.buttonLogout} activeOpacity={0.8}>
+            <TouchableOpacity
+              style={styles.buttonLogout}
+              activeOpacity={0.8}
+              onPress={() => dispatch(signOutThunk())}
+            >
               <Ionicons name="exit-outline" size={28} color="#BDBDBD" />
             </TouchableOpacity>
 
-            <Text style={styles.title}>User Name</Text>
+            <Text style={styles.title}>{state.displayName}</Text>
           </View>
         </ImageBackground>
       </TouchableWithoutFeedback>

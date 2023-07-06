@@ -17,6 +17,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { useNavigation } from "@react-navigation/native";
+import { registerDB } from "../redux/authService/authOperations";
 
 const SignupSchema = Yup.object().shape({
   login: Yup.string()
@@ -71,7 +72,9 @@ export default RegistrationScreen = () => {
             initialValues={{ login: "", mail: "", password: "" }}
             validationSchema={SignupSchema}
             onSubmit={(values) => {
+              const { login, mail, password } = values;
               console.log(JSON.stringify(values));
+              registerDB({ email: mail, password, login });
             }}
           >
             {({

@@ -3,10 +3,13 @@
 import { useFonts } from "expo-font";
 import { NavigationContainer } from "@react-navigation/native";
 
-import navSelector from "./routing";
+// import navSelector from "./routing";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
+import Main from "./components/Main";
 
 export default function App() {
-  const routes = navSelector(true);
+  // const routes = navSelector(false);
 
   const [fontsLoaded] = useFonts({
     "Roboto-100": require("./assets/fonts/Roboto-Thin.ttf"),
@@ -21,7 +24,12 @@ export default function App() {
     return;
   }
 
-  return <NavigationContainer>{routes}</NavigationContainer>;
+  return (
+    <Provider store={store}>
+      {/* <NavigationContainer>{routes}</NavigationContainer> */}
+      <Main />
+    </Provider>
+  );
 }
 
 // npx expo start
